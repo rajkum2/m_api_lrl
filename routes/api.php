@@ -31,3 +31,12 @@ Route::put('country/{id}','Country\CountryController@countryUpdate');
 Route::delete('country/{id}','Country\CountryController@countryDelete');
 */
 Route::apiResource('country','Country\Country');
+
+Route::prefix('v1')->group(function(){
+    Route::post('login', 'Api\AuthController@login');
+    Route::post('register', 'Api\AuthController@register');
+    Route::group(['middleware' => 'auth:api'], function() {
+        Route::get('getUser', 'Api\AuthController@getUser');
+        Route::apiResource('country','Country\Country');
+    });
+});

@@ -2,13 +2,16 @@
 
 namespace App;
 
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Auth;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    //use Authenticatable;
+    use HasApiTokens, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -36,4 +39,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    // public function __construct()
+    // {
+    //     $this->middleware(function ($request, $next) {
+    //         $this->user = Auth::user();
+
+    //         return $next($request);
+    //     });
+    // }
 }
